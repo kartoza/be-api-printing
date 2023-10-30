@@ -3,6 +3,12 @@ from pathlib import Path
 import os
 import time  
 from selenium.webdriver.common.keys import Keys  
+from webdriver_manager.chrome import ChromeDriverManager
+from webdriver_manager.core.os_manager import ChromeType
+from selenium.webdriver.chrome.service import Service as ChromiumService
+from selenium.webdriver.chrome.service import Service as ChromeService
+from selenium.webdriver.firefox.service import Service as FirefoxService
+from webdriver_manager.firefox import GeckoDriverManager
 
 class APIPrint():
     def __init__(self, url_list, download_path, progress_bar):
@@ -12,11 +18,12 @@ class APIPrint():
 
     def apiCallBack(self):
 
-        driver = webdriver.Chrome()  
-        #driver=webdriver.firefox()  
+        # driver = webdriver.Chrome()  
+        # driver=webdriver.firefox()  
         #driver=webdriver.ie()  
         #maximize the window size  
-        driver.maximize_window()  
+        driver = webdriver.Chrome(service=ChromeService(ChromeDriverManager().install()))
+        # driver.maximize_window()  
 
         for url in self.url_list:
             
