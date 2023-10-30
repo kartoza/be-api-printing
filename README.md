@@ -1,5 +1,14 @@
 # Create virtual enviroment 
-1. `python3 -m venv venv`
+- `python3 -m venv venv`
 
 # Run virtual enviroment
-1. `source venv/bin/activate`
+- `source venv/bin/activate`
+
+# Install packages
+- `pip install -r requirements.txt`
+
+# Run App
+- `python main.py`
+
+# Export exe
+- `cxfreeze -c main.py --target-dir dist`
