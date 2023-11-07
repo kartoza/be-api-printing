@@ -11,19 +11,20 @@ from selenium.webdriver.firefox.service import Service as FirefoxService
 from webdriver_manager.firefox import GeckoDriverManager
 
 class APIPrint():
-    def __init__(self, url_list, download_path, progress_bar):
+    def __init__(self, url_list, download_path):
         self.url_list = url_list
         self.download_path = download_path
-        self.progress_bar = progress_bar
 
     def apiCallBack(self):
+        print("called")
 
         # driver = webdriver.Chrome()  
         # driver=webdriver.firefox()  
         #driver=webdriver.ie()  
         #maximize the window size  
         driver = webdriver.Chrome(service=ChromeService(ChromeDriverManager().install()))
-        # driver.maximize_window()  
+        driver.maximize_window()  
+        time.sleep(10)
 
         for url in self.url_list:
             
@@ -40,7 +41,7 @@ class APIPrint():
                         else:
                             wait=False
                 print('finished downloading all files ...')
-                self.progress_bar.value += 90
+                # self.progress_bar.value += 90
             except:
                 pass
 

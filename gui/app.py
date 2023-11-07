@@ -36,7 +36,7 @@ class APIApp(MDApp):
                       size_hint_y = None, 
                       size_hint_x = 0.8,
                       height = 30,
-                      text='',
+                      text='/home/voogt/Downloads',
                       pos_hint={'center_x':0.5, 'center_y':0.90})
         
         
