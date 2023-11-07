@@ -22,6 +22,9 @@ class APIPrint():
         # driver=webdriver.firefox()  
         #driver=webdriver.ie()  
         #maximize the window size  
+        chrome_options = webdriver.ChromeOptions()
+        prefs = {'download.default_directory' : self.download_path}
+        chrome_options.add_experimental_option('prefs', prefs)
         driver = webdriver.Chrome(service=ChromeService(ChromeDriverManager().install()))
         driver.maximize_window()  
         time.sleep(10)
