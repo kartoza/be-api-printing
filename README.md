@@ -7,8 +7,18 @@
 # Install packages
 - `pip install -r requirements.txt`
 
-# Run App
+# Run Flask App
+- `cd api`
 - `python main.py`
 
-# Export exe
-- `cxfreeze -c main.py --target-dir dist`
+# Sending request
+
+- Url: `/print`
+- Method: `POST`
+- Body : ```
+{
+    "url": [],
+    "download_path": ""
+}
+```
+

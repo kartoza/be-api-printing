@@ -9,6 +9,9 @@ from selenium.webdriver.chrome.service import Service as ChromiumService
 from selenium.webdriver.chrome.service import Service as ChromeService
 from selenium.webdriver.firefox.service import Service as FirefoxService
 from webdriver_manager.firefox import GeckoDriverManager
+from selenium.webdriver.common.by import By
+from selenium.webdriver.support.ui import WebDriverWait
+from selenium.webdriver.support import expected_conditions as EC
 
 class APIPrint():
     def __init__(self, url_list, download_path):
@@ -25,9 +28,14 @@ class APIPrint():
         chrome_options = webdriver.ChromeOptions()
         prefs = {'download.default_directory' : self.download_path}
         chrome_options.add_experimental_option('prefs', prefs)
-        driver = webdriver.Chrome(service=ChromeService(ChromeDriverManager().install()))
+        driver = webdriver.Chrome(service=ChromeService(ChromeDriverManager().install()), options=chrome_options)
         driver.maximize_window()  
         time.sleep(10)
+        delay = 5
+
+        if not os.path.exists(self.download_path):
+            mode = 0o777
+            os.mkdir(self.download_path, mode)
 
         for url in self.url_list:
             
@@ -35,14 +43,27 @@ class APIPrint():
             
             try:
                 driver.get(url)
+                print(url)
                 wait = True
+                og_files_len = len([name for name in os.listdir(self.download_path)])
                 while(wait==True):
-                    for fname in os.listdir(self.download_path):
-                        if ('Unconfirmed') in fname:
-                            print('downloading files ...')
-                            time.sleep(2)
-                        else:
-                            wait=False
+                    # element = WebDriverWait(driver, delay).until(EC.presence_of_element_located((By.ID, 'feature-content')))
+                    element = driver.find_element(By.ID, "feature-content")
+                    if element:
+                        time.sleep(2)
+                        for fname in os.listdir(self.download_path):
+                            if ('Unconfirmed') in fname:
+                                print('downloading files ...')
+                                time.sleep(5)
+                            else:
+                                current_files_len = len([name for name in os.listdir(self.download_path)])
+                                print(f"current {current_files_len} old {og_files_len}")
+                                if current_files_len > og_files_len:
+                                    wait=False
+                                else:
+                                    time.sleep(2)
+                    else:
+                        time.sleep(2)
                 print('finished downloading all files ...')
                 # self.progress_bar.value += 90
             except:
