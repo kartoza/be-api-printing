@@ -7,9 +7,9 @@
 # Install packages
 - `pip install -r requirements.txt`
 
-# Run Flask App
+# Run Flask App (Development)
 - `cd api`
-- `python main.py`
+- `flask run`
 
 # Sending request
 
