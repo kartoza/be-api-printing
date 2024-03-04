@@ -1,10 +1,14 @@
 from flask import Flask, request, json, jsonify
 from printing import APIPrint
+import base64
+import os
+import json
+
 
 app = Flask(__name__)
 
 @app.route('/print', methods=["POST"])
-def print():
+def printPdf():
 
     if request.method == 'POST':
         data = request.json
@@ -16,8 +20,12 @@ def print():
         urls = list(data["url"])
         download_path = data["download_path"]
         printAPI = APIPrint(urls, download_path)
-        printAPI.apiCallBack()
-        return jsonify({"status": 200, "message": "success"})
+        filenames = printAPI.apiCallBack()
+        with open(f"{download_path}/{filenames[0]}", "rb") as pdf_file:
+            encoded_string = base64.b64encode(pdf_file.read())
+        os.remove(f"{download_path}/{filenames[0]}")
+
+        return jsonify({"status": 200, "base64": str(encoded_string)})
 
 @app.route('/help', methods=["GET"])
 def help():

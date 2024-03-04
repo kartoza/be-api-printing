@@ -19,7 +19,6 @@ class APIPrint():
         self.download_path = download_path
 
     def apiCallBack(self):
-        print("called")
 
         # driver = webdriver.Chrome()  
         # driver=webdriver.firefox()  
@@ -32,6 +31,7 @@ class APIPrint():
         driver.maximize_window()  
         time.sleep(10)
         delay = 5
+        filenames = []
 
         if not os.path.exists(self.download_path):
             mode = 0o777
@@ -43,7 +43,6 @@ class APIPrint():
             
             try:
                 driver.get(url)
-                print(url)
                 wait = True
                 og_files_len = len([name for name in os.listdir(self.download_path)])
                 while(wait==True):
@@ -57,8 +56,9 @@ class APIPrint():
                                 time.sleep(5)
                             else:
                                 current_files_len = len([name for name in os.listdir(self.download_path)])
-                                print(f"current {current_files_len} old {og_files_len}")
                                 if current_files_len > og_files_len:
+                                    for name in os.listdir(self.download_path):
+                                        filenames.append(name)
                                     wait=False
                                 else:
                                     time.sleep(2)
@@ -68,5 +68,6 @@ class APIPrint():
                 # self.progress_bar.value += 90
             except:
                 pass
-
+        
         driver.close()  
+        return filenames
