@@ -4,7 +4,6 @@ import base64
 import os
 import json
 import requests
-from pyvirtualdisplay import Display
 
 app = Flask(__name__)
 
