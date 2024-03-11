@@ -12,6 +12,7 @@ from webdriver_manager.firefox import GeckoDriverManager
 from selenium.webdriver.common.by import By
 from selenium.webdriver.support.ui import WebDriverWait
 from selenium.webdriver.support import expected_conditions as EC
+from pyvirtualdisplay import Display
 
 class APIPrint():
     def __init__(self, url_list, download_path):
@@ -24,10 +25,16 @@ class APIPrint():
         # driver=webdriver.firefox()  
         #driver=webdriver.ie()  
         #maximize the window size  
+        WINDOW_SIZE = "1920,1080"
+
         chrome_options = webdriver.ChromeOptions()
+        chrome_options.add_argument("--headless")
+        chrome_options.add_argument("--window-size=%s" % WINDOW_SIZE)
+        
         prefs = {'download.default_directory' : self.download_path}
         chrome_options.add_experimental_option('prefs', prefs)
         driver = webdriver.Chrome(service=ChromeService(ChromeDriverManager().install()), options=chrome_options)
+        # driver = webdriver.Chrome('/app/chromedriver')
         driver.maximize_window()  
         time.sleep(10)
         delay = 5

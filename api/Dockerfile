@@ -1,4 +1,21 @@
-FROM python:3-alpine
+FROM ubuntu:20.04
+
+RUN apt-get update && apt-get install -y --no-install-recommends \
+    python3.10 \
+    python3-pip \
+    && \
+    apt-get clean && \
+    rm -rf /var/lib/apt/lists/*
+
+RUN uname
+
+RUN apt update
+
+RUN apt install wget
+
+RUN apt-get install chromium-browser -y --no-install-recommends
+
+RUN apt -f install
  
 # Create app directory
 WORKDIR /app

@@ -3,7 +3,8 @@ from printing import APIPrint
 import base64
 import os
 import json
-
+import requests
+from pyvirtualdisplay import Display
 
 app = Flask(__name__)
 
@@ -49,6 +50,6 @@ def help():
     }
     return jsonify(data)
 
-# if __name__ == "__main__":
-#     port = int(os.environ.get('PORT', 7000))
-#     app.run(debug=False, host='0.0.0.0', port=port)
+if __name__ == "__main__":
+    port = int(os.environ.get('PORT', 7000))
+    app.run(debug=True, host='0.0.0.0', port=port)
