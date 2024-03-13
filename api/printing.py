@@ -28,7 +28,7 @@ class APIPrint():
 
         chrome_options = webdriver.ChromeOptions()
         chrome_options.add_argument("--headless")
-        # chrome_options.add_argument("--window-size=%s" % WINDOW_SIZE)
+        chrome_options.add_argument("--window-size=%s" % WINDOW_SIZE)
         
         prefs = {'download.default_directory' : self.download_path}
         chrome_options.add_experimental_option('prefs', prefs)
