@@ -49,10 +49,18 @@ In the root of your Node.js application directory, create a `web.config` file wi
         </rule>
       </rules>
     </rewrite>
-    <iisnode loggingEnabled="true" />
+    <iisnode 
+    devErrorsEnabled="true"
+    loggingEnabled="false" />
   </system.webServer>
 </configuration>
 ```
+
+### Step 7
+*Grant Permissions*
+- Navigate to your application's directory in the file system.
+- Right-click the folder, select Properties, and go to the Security tab.
+- Add the application pool identity (e.g., IIS AppPool\DefaultAppPool) and grant Read & Execute and Write permissions.
 
 # Sending request
 
