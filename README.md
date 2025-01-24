@@ -50,8 +50,17 @@ In the root of your Node.js application directory, create a `web.config` file wi
       </rules>
     </rewrite>
     <iisnode 
-    devErrorsEnabled="true"
-    loggingEnabled="false" />
+      devErrorsEnabled="true"
+      loggingEnabled="true"
+      debuggingEnabled="true" 
+      maxNamedPipeConnectionRetry="10"
+      gracefulShutdownTimeout="3000" />
+    <httpErrors errorMode="Detailed">
+      <remove statusCode="404" />
+      <remove statusCode="500" />
+      <error statusCode="404" path="/404.html" responseMode="ExecuteURL" />
+      <error statusCode="500" path="/500.html" responseMode="ExecuteURL" />
+    </httpErrors>
   </system.webServer>
 </configuration>
 ```
